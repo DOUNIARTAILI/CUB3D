@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:50:06 by drtaili           #+#    #+#             */
-/*   Updated: 2023/07/29 23:34:22 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/07/31 00:34:52 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,8 @@ int map[map_width][map_height] =
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
-static int	close_win(t_data *data)
+void    Move_back_and_forth(t_data *data, int keycode)
 {
-	(void)data;
-	exit(0);
-}
-
-void move_shape(t_data *data, int keycode)
-{
-    // if ((keycode == 123 || keycode == 124 || keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13) && data)
     if (keycode == 13)//up
     {
         if (map[(int)(data->pos.x + data->dir.x * moveSpeed)][(int)data->pos.y] == 0)
@@ -63,7 +56,10 @@ void move_shape(t_data *data, int keycode)
         if (map[(int)data->pos.x][(int)(data->pos.y - data->dir.y * moveSpeed)] == 0)
             data->pos.y -= data->dir.y * moveSpeed;
     }
-    else if (keycode == 2)//right
+}
+void    move_sideways(t_data *data, int keycode)
+{
+    if (keycode == 2)//right
     {
         if (map[(int)(data->pos.x + data->plane.x * moveSpeed)][(int)data->pos.y] == 0)
             data->pos.x += data->plane.x * moveSpeed;
@@ -77,25 +73,12 @@ void move_shape(t_data *data, int keycode)
         if (map[(int)data->pos.x][(int)(data->pos.y - data->plane.y * moveSpeed)] == 0)
             data->pos.y -= data->plane.y * moveSpeed;
     }
-    else if (keycode == 124)//rot right
-    {
-        double oldDirX = data->dir.x;
-        data->dir.x = data->dir.x * cos(-rotSpeed) - data->dir.y * sin(-rotSpeed);
-        data->dir.y = oldDirX * sin(-rotSpeed) + data->dir.y * cos(-rotSpeed);
-        double oldPlaneX = data->plane.x;
-        data->plane.x = data->plane.x * cos(-rotSpeed) - data->plane.y * sin(-rotSpeed);
-        data->plane.y = oldPlaneX * sin(-rotSpeed) + data->plane.y * cos(-rotSpeed);
-    }
-    else if (keycode == 123)//rot left
-    {
-        double oldDirX = data->dir.x;
-        data->dir.x = data->dir.x * cos(rotSpeed) - data->dir.y * sin(rotSpeed);
-        data->dir.y = oldDirX * sin(rotSpeed) + data->dir.y * cos(rotSpeed);
-        double oldPlaneX = data->plane.x;
-        data->plane.x = data->plane.x * cos(rotSpeed) - data->plane.y * sin(rotSpeed);
-        data->plane.y = oldPlaneX * sin(rotSpeed) + data->plane.y * cos(rotSpeed);
-    }
-    raycast(data);
+}
+
+static int	close_win(t_data *data)
+{
+	(void)data;
+	exit(0);
 }
 
 int	key_press(int keycode, t_data *data)
@@ -104,6 +87,20 @@ int	key_press(int keycode, t_data *data)
 		exit(0);
     move_shape(data, keycode);
 	return (0);
+}
+int mouse_move(int x, int y, t_data *data)
+{
+    (void)y;
+    int old_x;
+    if (x > WIN_WIDTH || x < 0 || y > WIN_HEIGHT || y < 0)
+        return (0);
+    old_x = data->store_x;
+    if (x < old_x)
+        key_press(123, data);
+    else if (x > old_x)
+        key_press(124, data);
+    data->store_x = x;
+    return (0);
 }
 
 int	main()
@@ -114,6 +111,7 @@ int	main()
 	raycast(&data);
     mlx_hook(data.mlx.win_ptr, 17, 0, close_win, &data);
     mlx_hook(data.mlx.win_ptr, 2, 0, key_press, &data);
+    mlx_hook(data.mlx.win_ptr, 6, 0, mouse_move, &data);
 	mlx_loop(data.mlx.mlx_ptr);
 	return (0);
 }

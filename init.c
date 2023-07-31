@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:51 by drtaili           #+#    #+#             */
-/*   Updated: 2023/07/29 23:06:16 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/07/31 00:07:45 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	ft_init(t_data *data)
 	data->dir.y = 0;
 	data->plane.x = 0;
 	data->plane.y = 0.66;
+	data->store_x = WIN_WIDTH / 2;
 }

@@ -6,11 +6,11 @@
 #    By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 21:01:57 by drtaili           #+#    #+#              #
-#    Updated: 2023/07/29 22:32:07 by drtaili          ###   ########.fr        #
+#    Updated: 2023/07/30 23:40:44 by drtaili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = draw.c main.c init.c dda.c map.c 
+SRC = draw.c main.c init.c dda.c map.c move_shape.c
 OBJS = $(SRC:.c=.o)
 NAME = cube3d
 

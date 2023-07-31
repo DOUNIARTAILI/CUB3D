@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:57 by drtaili           #+#    #+#             */
-/*   Updated: 2023/07/29 23:32:04 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/07/31 00:02:57 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct
     t_vec   dir;
     t_vec   plane;
     int     map[map_width][map_height];
+    int     store_x;
 }   t_data;
 
 typedef struct
@@ -85,5 +86,9 @@ void	ft_init(t_data *data);
 void	raycast(t_data *data);
 void	ft_map(int dst[map_width][map_height], int src[map_width][map_height]);
 void	dda(t_data *data, t_raycast *rc, t_dda *dda_);
+void    rot_left_right(t_data *data, int keycode);
+void    Move_back_and_forth(t_data *data, int keycode);
+void    move_sideways(t_data *data, int keycode);
+void    move_shape(t_data *data, int keycode);
 
 #endif
