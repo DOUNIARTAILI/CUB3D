@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:09 by drtaili           #+#    #+#             */
-/*   Updated: 2023/07/31 00:49:17 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/08/14 01:36:51 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	draw_line(t_data *data, int x, int draw_start, int draw_end, int col
 		y++;
 	} 
 }
-// floor : #DC6400 ceilling : 
+// floor : 0xDC6400 ceilling : 0xE11E00
 
 static int	get_color(int wall_id)
 {

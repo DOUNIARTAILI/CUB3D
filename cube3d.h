@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:57 by drtaili           #+#    #+#             */
-/*   Updated: 2023/07/31 00:02:57 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/08/14 01:48:36 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ typedef struct
     t_vec   plane;
     int     map[map_width][map_height];
     int     store_x;
+    void    *cnv_img;
+    void    *img_ptr;
+    int     *cnv_addr;
+    int     cnv_w;
+    int     cnv_h;
+    int		cnv_bpp;
+	int		cnv_ll;
+	int		cnv_en;
 }   t_data;
 
 typedef struct
