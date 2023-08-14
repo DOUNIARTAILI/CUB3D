@@ -6,19 +6,36 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:51 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/14 01:55:35 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/08/14 04:19:06 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
+void	loading_texture(t_data *data)
+{
+	data->cnv_img1 = mlx_xpm_file_to_image(data->mlx.mlx_ptr, "/Users/drtaili/Desktop/cub3d/xpmimg/floor.xpm", &data->tex_w, &data->tex_h);
+	if (data->cnv_img1 == NULL)
+		return ;
+	data->cnv_addr1 = (int *)mlx_get_data_addr(data->cnv_img1, &data->cnv_bpp1, &data->cnv_ll1, &data->cnv_en1);
+	data->cnv_img2 = mlx_xpm_file_to_image(data->mlx.mlx_ptr, "/Users/drtaili/Desktop/cub3d/xpmimg/wall1.xpm", &data->tex_w, &data->tex_h);
+	if (data->cnv_img2 == NULL)
+		return ;
+	data->cnv_addr2 = (int *)mlx_get_data_addr(data->cnv_img2, &data->cnv_bpp2, &data->cnv_ll2, &data->cnv_en2);
+	data->cnv_img3 = mlx_xpm_file_to_image(data->mlx.mlx_ptr, "/Users/drtaili/Desktop/cub3d/xpmimg/wall2.xpm", &data->tex_w, &data->tex_h);
+	if (data->cnv_img3 == NULL)
+		return ;
+	data->cnv_addr3 = (int *)mlx_get_data_addr(data->cnv_img3, &data->cnv_bpp3, &data->cnv_ll3, &data->cnv_en3);
+	data->cnv_img4 = mlx_xpm_file_to_image(data->mlx.mlx_ptr, "/Users/drtaili/Desktop/cub3d/xpmimg/wall3_1.xpm", &data->tex_w, &data->tex_h);
+	if (data->cnv_img4 == NULL)
+		return ;
+	data->cnv_addr4 = (int *)mlx_get_data_addr(data->cnv_img4, &data->cnv_bpp4, &data->cnv_ll4, &data->cnv_en4);
+}
+
 void	ft_init(t_data *data)
 {
     data->mlx.mlx_ptr = mlx_init();
-	data->cnv_img = mlx_xpm_file_to_image(data->mlx.mlx_ptr, "/Users/drtaili/Desktop/cub3d/xpmimg/wall2.xpm", &data->cnv_w, &data->cnv_h);
-	if (data->cnv_img == NULL)
-		return ;
-	data->cnv_addr = (int *)mlx_get_data_addr(data->cnv_img, &data->cnv_bpp, &data->cnv_ll, &data->cnv_en);
+	loading_texture(data);
 	data->mlx.win_ptr = mlx_new_window(data->mlx.mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	data->img = mlx_new_image(data->mlx.mlx_ptr, WIN_WIDTH,  WIN_HEIGHT);
 	data->addr = (int *)mlx_get_data_addr(data->img,

@@ -6,54 +6,91 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:09 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/14 01:36:51 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/08/14 04:20:22 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	draw_line(t_data *data, int x, int draw_start, int draw_end, int color)
+static void	draw_line(t_data *data, int x, int draw_start)
 {
 	int	y;
 
 	y = 0;
 	while (y < draw_start)
 	{
-        data->addr[y * WIN_WIDTH + x] = 0x87CEEB;
-		y++;
-	}
-	while (y < draw_end)
-	{
-        data->addr[y * WIN_WIDTH + x] = color;
+        data->addr[y * WIN_WIDTH + x] = 0xE11E00;
 		y++;
 	}
 	while (y < WIN_HEIGHT)
 	{
-        data->addr[y * WIN_WIDTH + x] = 0x009A17;
+        data->addr[y * WIN_WIDTH + x] = 0xDC6400;
 		y++;
 	} 
 }
 // floor : 0xDC6400 ceilling : 0xE11E00
 
-static int	get_color(int wall_id)
+static int	get_color(t_data *data, t_dda *dda_, t_raycast *rc)
 {
-	if (wall_id == 1)
-		return (0x0000FF);
-	else if (wall_id == 2)
-		return (0x00FF00);
-	else if (wall_id == 3)
-		return (0xFF0000);
-	else if (wall_id == 4)
-		return (0xFFFF00);
+	int	color;
+
+	color = 0;
+	if (dda_->side == 0 && rc->ray.x > 0)
+		color = *(data->cnv_addr1 + (data->tex_h * data->texy + data->texx));
+	else if (dda_->side == 0 && rc->ray.x < 0)
+		color = *(data->cnv_addr2 + (data->tex_h * data->texy + data->texx));
+	else if (dda_->side == 1 && rc->ray.y > 0)
+		color = *(data->cnv_addr3 + (data->tex_h * data->texy + data->texx));
+	else if (dda_->side == 1 && rc->ray.y < 0)
+		color = *(data->cnv_addr4 + (data->tex_h * data->texy + data->texx));
+	return (color);
+}
+
+void	texture_prep(t_data *data, t_dda *dda_, t_raycast *rc)
+{
+	double	wallx;
+
+	data->texnum = data->map[(int)dda_->map_x][(int)dda_->map_y] - 1;
+	if (dda_->side == 0)
+		wallx = data->pos.y + dda_->perp_wall_dist * rc->ray.y;
 	else
-		return (0);
+		wallx = data->pos.x + dda_->perp_wall_dist * rc->ray.x;
+	wallx -= floor(wallx);
+	data->texx = (int)(wallx * (double)data->tex_w);
+	if (dda_->side == 0 && rc->ray.x > 0) 
+		data->texx = data->tex_w - data->texx - 1;
+	if (dda_->side == 1 && rc->ray.y < 0)
+		data->texx = data->tex_w - data->texx - 1;
+}
+
+void	texture_loop(t_data *data, t_dda *dda_, t_raycast *rc, int x)
+{
+	double	step;
+	double	texpos;
+	int		y;
+	int		color;
+
+	color = 0;
+	texture_prep(data, dda_, rc);
+	step = 1.0 * data->tex_h / dda_->line_height;
+	texpos = (dda_->draw_start - WIN_HEIGHT / 2 + dda_->line_height / 2) * step;
+	y = dda_->draw_start;
+	while (y < dda_->draw_end)
+	{
+		data->texy = (int)texpos & (data->tex_h - 1);
+		texpos += step;
+		color = get_color(data, dda_, rc);
+		if (dda_->side == 1)
+			color = (color >> 1) & 8355711;
+		data->addr[y * WIN_WIDTH + x] = color;
+		y++;
+	}
 }
 
 void	raycast(t_data *data)
 {
     t_raycast	rc;
 	t_dda		dda_;
-    int         color;
     int         x;
 
     x = 0;
@@ -70,10 +107,11 @@ void	raycast(t_data *data)
 	    dda_.draw_end = (int)(dda_.line_height / 2.0) + (int)(WIN_HEIGHT / 2.0);
 	    if (dda_.draw_end >= WIN_HEIGHT)
 		    dda_.draw_end = WIN_HEIGHT - 1;
-		color = get_color(data->map[(int)dda_.map_x][(int)dda_.map_y]);
-		if (dda_.side == Y)
-			color /= 2;
-		draw_line(data, x, dda_.draw_start, dda_.draw_end, color);
+		draw_line(data, x, dda_.draw_start);
+		texture_loop(data, &dda_, &rc, x);
+		// color = get_color(data->map[(int)dda_.map_x][(int)dda_.map_y]);
+		// if (dda_.side == Y)
+		// 	color /= 2;
         x++;
 	}
     mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, data->img, 0, 0);

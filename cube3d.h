@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:57 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/14 01:48:36 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/08/14 03:44:48 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,31 @@ typedef struct
     t_vec   plane;
     int     map[map_width][map_height];
     int     store_x;
-    void    *cnv_img;
-    void    *img_ptr;
-    int     *cnv_addr;
-    int     cnv_w;
-    int     cnv_h;
-    int		cnv_bpp;
-	int		cnv_ll;
-	int		cnv_en;
+    void    *cnv_img1;
+    int     *cnv_addr1;
+    int     tex_w;
+    int     tex_h;
+    int		cnv_bpp1;
+	int		cnv_ll1;
+	int		cnv_en1;
+    void    *cnv_img2;
+    int     *cnv_addr2;
+    int		cnv_bpp2;
+	int		cnv_ll2;
+	int		cnv_en2;
+    void    *cnv_img3;
+    int     *cnv_addr3;
+    int		cnv_bpp3;
+	int		cnv_ll3;
+	int		cnv_en3;
+    void    *cnv_img4;
+    int     *cnv_addr4;
+    int		cnv_bpp4;
+	int		cnv_ll4;
+	int		cnv_en4;
+    int		texx;
+    int		texy;
+    int		texnum;
 }   t_data;
 
 typedef struct
