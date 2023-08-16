@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:51 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/14 04:50:15 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/08/15 03:41:06 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	loading_texture1(t_data *data)
 {
 	data->cnv_img1 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-			"/Users/drtaili/Desktop/cub3d/xpmimg/floor.xpm",
+			"/Users/drtaili/Desktop/cub3d/xpmimg/42_1.xpm",
 			&data->tex_w, &data->tex_h);
 	if (data->cnv_img1 == NULL)
 		return ;
 	data->cnv_addr1 = (int *)mlx_get_data_addr(data->cnv_img1, &data->cnv_bpp1,
 			&data->cnv_ll1, &data->cnv_en1);
 	data->cnv_img2 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-			"/Users/drtaili/Desktop/cub3d/xpmimg/wall1.xpm",
+			"/Users/drtaili/Desktop/cub3d/xpmimg/42_1.xpm",
 			&data->tex_w, &data->tex_h);
 	if (data->cnv_img2 == NULL)
 		return ;
@@ -33,14 +33,14 @@ void	loading_texture1(t_data *data)
 void	loading_texture2(t_data *data)
 {
 	data->cnv_img3 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-			"/Users/drtaili/Desktop/cub3d/xpmimg/wall2.xpm",
+			"/Users/drtaili/Desktop/cub3d/xpmimg/42_1.xpm",
 			&data->tex_w, &data->tex_h);
 	if (data->cnv_img3 == NULL)
 		return ;
 	data->cnv_addr3 = (int *)mlx_get_data_addr(data->cnv_img3, &data->cnv_bpp3,
 			&data->cnv_ll3, &data->cnv_en3);
 	data->cnv_img4 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-			"/Users/drtaili/Desktop/cub3d/xpmimg/wall3_1.xpm",
+			"/Users/drtaili/Desktop/cub3d/xpmimg/42_1.xpm",
 			&data->tex_w, &data->tex_h);
 	if (data->cnv_img4 == NULL)
 		return ;

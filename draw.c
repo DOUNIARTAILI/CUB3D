@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:09 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/14 04:44:33 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/08/16 04:01:17 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ static int	get_color(t_data *data, t_dda *dda_, t_raycast *rc)
 	int	color;
 
 	color = 0;
-	if (dda_->side == 0 && rc->ray.x > 0)
+	//side = 0 => (top or bottom) 
+	//side = 1 => (left or right)
+	if (dda_->side == 0 && rc->ray.x > 0)//south
 		color = *(data->cnv_addr1 + (data->tex_h * data->texy + data->texx));
-	else if (dda_->side == 0 && rc->ray.x < 0)
+	else if (dda_->side == 0 && rc->ray.x < 0)//north
 		color = *(data->cnv_addr2 + (data->tex_h * data->texy + data->texx));
-	else if (dda_->side == 1 && rc->ray.y > 0)
+	else if (dda_->side == 1 && rc->ray.y > 0)//east
 		color = *(data->cnv_addr3 + (data->tex_h * data->texy + data->texx));
-	else if (dda_->side == 1 && rc->ray.y < 0)
+	else if (dda_->side == 1 && rc->ray.y < 0)//west
 		color = *(data->cnv_addr4 + (data->tex_h * data->texy + data->texx));
 	return (color);
 }
@@ -50,16 +52,15 @@ void	texture_prep(t_data *data, t_dda *dda_, t_raycast *rc)
 {
 	double	wallx;
 
-	data->texnum = data->map[(int)dda_->map_x][(int)dda_->map_y] - 1;
 	if (dda_->side == 0)
 		wallx = data->pos.y + dda_->perp_wall_dist * rc->ray.y;
 	else
 		wallx = data->pos.x + dda_->perp_wall_dist * rc->ray.x;
 	wallx -= floor(wallx);
 	data->texx = (int)(wallx * (double)data->tex_w);
-	if (dda_->side == 0 && rc->ray.x > 0) 
+	if (dda_->side == 0 && rc->ray.x > 0) // (south)
 		data->texx = data->tex_w - data->texx - 1;
-	if (dda_->side == 1 && rc->ray.y < 0)
+	if (dda_->side == 1 && rc->ray.y < 0) // (west)
 		data->texx = data->tex_w - data->texx - 1;
 }
 

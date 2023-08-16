@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:57 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/14 05:16:28 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/08/15 02:09:45 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct s_data
 	int		cnv_en4;
 	int		texx;
 	int		texy;
-	int		texnum;
 }	t_data;
 
 typedef struct s_raycast
