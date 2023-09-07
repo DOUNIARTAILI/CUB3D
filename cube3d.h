@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:57 by drtaili           #+#    #+#             */
-/*   Updated: 2023/09/07 17:01:20 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/09/07 18:35:49 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define MAP_HEIGHT 24
 
 # define MOVESPEED 0.9
-# define ROTSPEED 0.06
+# define ROTSPEED 0.01
 
 typedef struct s_mlx
 {
