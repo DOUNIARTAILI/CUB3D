@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:51 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/15 03:41:06 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/09/07 16:52:45 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,10 @@ void	ft_init(t_data *data)
 	data->plane.x = 0;
 	data->plane.y = 0.66;
 	data->store_x = WIN_WIDTH / 2;
+	data->minimap.rot = 180;
+	data->minimap.keycode_move = -1;
+	data->minimap.keycode_rotate = -1;
+	data->minimap.keycode_sides = -1;
+	data->minimap.mouse_move = 0;
+	data->minimap.turn_direction = -1;
 }

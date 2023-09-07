@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 23:40:04 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/14 05:11:10 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/09/07 17:16:36 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ void	rot_right(t_data *data)
 	double	olddirx;
 	double	oldplanex;
 
+	if (data->minimap.mouse_move)
+	{
+		data->minimap.mouse_move = 0;
+		data->minimap.keycode_rotate = -1;
+	}
+	data->minimap.turn_direction = -1;
+	data->minimap.rot = data->minimap.rot + data->minimap.turn_direction * (ROTSPEED * 180 / M_PI);
 	olddirx = data->dir.x;
 	data->dir.x = data->dir.x * cos(-ROTSPEED)
 		- data->dir.y * sin(-ROTSPEED);
@@ -37,6 +44,13 @@ void	rot_left_right(t_data *data, int keycode)
 		rot_right(data);
 	else if (keycode == 123)
 	{
+		if (data->minimap.mouse_move)
+		{
+			data->minimap.mouse_move = 0;
+			data->minimap.keycode_rotate = -1;
+		}
+		data->minimap.turn_direction = 1;
+		data->minimap.rot = data->minimap.rot + data->minimap.turn_direction * (ROTSPEED * 180 / M_PI);
 		olddirx = data->dir.x;
 		data->dir.x = data->dir.x * cos(ROTSPEED) - data->dir.y * sin(ROTSPEED);
 		data->dir.y = olddirx * sin(ROTSPEED) + data->dir.y * cos(ROTSPEED);
@@ -48,13 +62,12 @@ void	rot_left_right(t_data *data, int keycode)
 	}
 }
 
-void	move_shape(t_data *data, int keycode)
+void	move_shape(t_data *data)
 {
-	if (keycode == 13 || keycode == 1)
-		move_back_and_forth(data, keycode);
-	else if (keycode == 2 || keycode == 0)
-		move_sideways(data, keycode);
-	else if (keycode == 123 || keycode == 124)
-		rot_left_right(data, keycode);
-	raycast(data);
+	if (data->minimap.keycode_move == 13 || data->minimap.keycode_move == 1)
+		move_back_and_forth(data, data->minimap.keycode_move);
+	if (data->minimap.keycode_sides == 2 || data->minimap.keycode_sides == 0)
+		move_sideways(data, data->minimap.keycode_sides);
+	if (data->minimap.keycode_rotate == 123 || data->minimap.keycode_rotate == 124)
+		rot_left_right(data, data->minimap.keycode_rotate);
 }

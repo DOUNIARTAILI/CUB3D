@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:09 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/16 04:01:17 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/09/07 17:01:06 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,16 @@ void	texture_loop(t_data *data, t_dda *dda_, t_raycast *rc, int x)
 	}
 }
 
-void	raycast(t_data *data)
+int	raycast(void *param)
 {
 	t_raycast	rc;
 	t_dda		dda_;
 	int			x;
+	t_data		*data;
 
 	x = 0;
+	data = (t_data *)param;
+	move_shape(data);
 	while (x < WIN_WIDTH)
 	{
 		rc.camera_x = 2.0 * x / (double)WIN_WIDTH - 1;
@@ -115,4 +118,5 @@ void	raycast(t_data *data)
 	}
 	mlx_put_image_to_window(data->mlx.mlx_ptr,
 		data->mlx.win_ptr, data->img, 0, 0);
+	return (0);
 }

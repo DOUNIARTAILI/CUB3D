@@ -6,7 +6,7 @@
 /*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:57 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/15 02:09:45 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/09/07 17:01:20 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <string.h>
 # include <unistd.h>
 
-# define WIN_WIDTH  640
-# define WIN_HEIGHT 480
+# define WIN_WIDTH  1200
+# define WIN_HEIGHT 1200
 
 # define X          0
 # define Y          1
@@ -30,7 +30,7 @@
 # define MAP_HEIGHT 24
 
 # define MOVESPEED 0.9
-# define ROTSPEED 0.1
+# define ROTSPEED 0.06
 
 typedef struct s_mlx
 {
@@ -43,6 +43,18 @@ typedef struct s_vec
 	double	x;
 	double	y;
 }	t_vec;
+
+typedef struct minimap
+{
+	int		keycode;
+	int		keycode_move;
+	int		keycode_rotate;	
+	int		keycode_sides;
+	t_vec	pos_mini;
+	double	rot;
+	int		mouse_move;
+	int		turn_direction;
+} t_minimap;
 
 typedef struct s_data
 {
@@ -81,6 +93,7 @@ typedef struct s_data
 	int		cnv_en4;
 	int		texx;
 	int		texy;
+	t_minimap	minimap;
 }	t_data;
 
 typedef struct s_raycast
@@ -105,14 +118,15 @@ typedef struct s_dda
 	int		draw_end;
 }	t_dda;
 
+
 void	ft_init(t_data *data);
-void	raycast(t_data *data);
+int		raycast(void *param);
 void	ft_map(int dst[MAP_WIDTH][MAP_HEIGHT], int src[MAP_WIDTH][MAP_HEIGHT]);
 void	dda(t_data *data, t_raycast *rc, t_dda *dda_);
 void	rot_left_right(t_data *data, int keycode);
 void	move_back_and_forth(t_data *data, int keycode);
 void	move_sideways(t_data *data, int keycode);
-void	move_shape(t_data *data, int keycode);
+void	move_shape(t_data *data);
 int		close_win(t_data *data);
 
 #endif
