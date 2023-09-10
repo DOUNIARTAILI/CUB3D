@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:42:03 by drtaili           #+#    #+#             */
-/*   Updated: 2023/08/14 05:16:08 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:26:13 by mmaqbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	dda(t_data *data, t_raycast *rc, t_dda *dda_)
 			dda_->map_y += dda_->step_y;
 			dda_->side = Y;
 		}
-		dda_->hit = (data->map[dda_->map_x][dda_->map_y] > 0);
+		if (data->map_test[dda_->map_x][dda_->map_y] == 1)
+			dda_->hit = 1;
+		else
+			dda_->hit = 0;
 	}
 	if (dda_->side == X)
 		dda_->perp_wall_dist = (dda_->side_dist.x - dda_->delta_dist.x);
@@ -79,6 +82,6 @@ void	dda(t_data *data, t_raycast *rc, t_dda *dda_)
 
 int	close_win(t_data *data)
 {
-	(void)data;
+	free_map(data, data->minimap.map_height);
 	exit(0);
 }

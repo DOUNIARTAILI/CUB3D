@@ -3,16 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+         #
+#    By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 21:01:57 by drtaili           #+#    #+#              #
-#    Updated: 2023/07/30 23:40:44 by drtaili          ###   ########.fr        #
+#    Updated: 2023/09/09 14:54:04 by mmaqbour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = draw.c main.c init.c dda.c map.c move_shape.c
+SRC = draw.c draw_1.c main.c utils.c init.c \
+		dda.c move_shape.c check_map.c check_map_1.c free_all.c \
+		pars_map.c parsing.c pars_textures1.c pars_textures1_1.c \
+		pars_textures2.c minimap.c minimap_1.c
 OBJS = $(SRC:.c=.o)
 NAME = cube3d
+LIBFT = libft/libft.a
+HEADER = cube3d.h
 
 CC = cc
 
@@ -24,18 +29,23 @@ FLAGS_mlx = -lm -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
-cube3d : $(OBJS)
-	$(CC) $(FLAGS) $(FLAGS_mlx) $(OBJS) -o $(NAME)
+$(NAME) : $(LIBFT) $(OBJS)
+	$(CC) $(FLAGS) $(LIBFT) $(FLAGS_mlx) $(OBJS) -o $(NAME)
 
-%.o : %.c cube3d.h
+$(LIBFT) :
+	@make -C libft
+
+%.o : %.c $(HEADER)
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
+	@make clean -C libft
 	$(RM) $(OBJS)
 
 fclean: clean
+	@make fclean -C libft
 	$(RM) $(NAME) 
 
-re: fclean $(NAME) 
+re: fclean $(NAME)
 
 .PHONY = all clean fclean re

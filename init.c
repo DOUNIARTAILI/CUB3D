@@ -3,73 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:51 by drtaili           #+#    #+#             */
-/*   Updated: 2023/09/07 16:52:45 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/09/10 19:05:02 by mmaqbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	loading_texture1(t_data *data)
+void	map_into_int_1(t_data *data, t_game *game)
 {
-	data->cnv_img1 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-			"/Users/drtaili/Desktop/cub3d/xpmimg/42_1.xpm",
-			&data->tex_w, &data->tex_h);
-	if (data->cnv_img1 == NULL)
-		return ;
-	data->cnv_addr1 = (int *)mlx_get_data_addr(data->cnv_img1, &data->cnv_bpp1,
-			&data->cnv_ll1, &data->cnv_en1);
-	data->cnv_img2 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-			"/Users/drtaili/Desktop/cub3d/xpmimg/42_1.xpm",
-			&data->tex_w, &data->tex_h);
-	if (data->cnv_img2 == NULL)
-		return ;
-	data->cnv_addr2 = (int *)mlx_get_data_addr(data->cnv_img2, &data->cnv_bpp2,
-			&data->cnv_ll2, &data->cnv_en2);
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	j = 0;
+	while (i < game->map_hght)
+	{
+		j = 0;
+		while (game->map_components[i][j])
+		{
+			if (game->map_components[i][j] == '0'
+				|| game->map_components[i][j] == '1')
+				data->map_test[i][j] = game->map_components[i][j] - '0';
+			else
+				data->map_test[i][j] = -1;
+			j++;
+		}
+		i++;
+	}
 }
 
-void	loading_texture2(t_data *data)
+int	map_into_int(t_game *game, t_data **data)
 {
-	data->cnv_img3 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-			"/Users/drtaili/Desktop/cub3d/xpmimg/42_1.xpm",
-			&data->tex_w, &data->tex_h);
-	if (data->cnv_img3 == NULL)
-		return ;
-	data->cnv_addr3 = (int *)mlx_get_data_addr(data->cnv_img3, &data->cnv_bpp3,
-			&data->cnv_ll3, &data->cnv_en3);
-	data->cnv_img4 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-			"/Users/drtaili/Desktop/cub3d/xpmimg/42_1.xpm",
-			&data->tex_w, &data->tex_h);
-	if (data->cnv_img4 == NULL)
-		return ;
-	data->cnv_addr4 = (int *)mlx_get_data_addr(data->cnv_img4, &data->cnv_bpp4,
-			&data->cnv_ll4, &data->cnv_en4);
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	j = 0;
+	(*data)->map_test = malloc(sizeof(int *) * game->map_hght);
+	if (!(*data)->map_test)
+		return (1);
+	while (i < game->map_hght)
+	{
+		(*data)->map_test[i] = malloc(sizeof(int) * game->map_lnght);
+		if (!(*data)->map_test[i])
+			return (free_map((*data), game->map_hght));
+		i++;
+	}
+	map_into_int_1((*data), game);
+	return (0);
 }
 
-void	ft_init(t_data *data)
+int	ft_init(t_data *data, t_game *game)
 {
-	data->mlx.mlx_ptr = mlx_init();
-	loading_texture1(data);
-	loading_texture2(data);
 	data->mlx.win_ptr = mlx_new_window(data->mlx.mlx_ptr,
 			WIN_WIDTH, WIN_HEIGHT, "cub3d");
+	if (!data->mlx.win_ptr)
+		return (my_free_map_components(game), 1);
 	data->img = mlx_new_image(data->mlx.mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	if (!data->img)
+		return (my_free_map_components(game), 1);
 	data->addr = (int *)mlx_get_data_addr(data->img,
 			&data->bits_per_pixel, &data->line_length,
 			&data->endian);
-	data->pos.x = 22;
-	data->pos.y = 12;
-	data->dir.x = -1;
-	data->dir.y = 0;
-	data->plane.x = 0;
-	data->plane.y = 0.66;
+	data->minimap.map_width = game->map_lnght;
+	data->minimap.map_height = game->map_hght;
+	if (map_into_int(game, &data))
+		return (my_free_map_components(game), 1);
+	my_free_map_components(game);
 	data->store_x = WIN_WIDTH / 2;
-	data->minimap.rot = 180;
 	data->minimap.keycode_move = -1;
 	data->minimap.keycode_rotate = -1;
 	data->minimap.keycode_sides = -1;
 	data->minimap.mouse_move = 0;
 	data->minimap.turn_direction = -1;
+	data->minimap.minimap_tile = 10;
+	return (0);
 }
