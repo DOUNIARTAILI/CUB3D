@@ -1,10 +1,10 @@
-NO ./images/wall2.xpm
-SO ./images/wall32.xpm
-WE ./images/wall1.xpm
-EA ./images/wall8.xpm
+NO ./images/nuklear/door.xpm
+SO ./images/nuklear/wall1.xpm
+WE ./images/nuklear/wall2.xpm
+EA ./images/nuklear/wall3.xpm
 
-C      200 ,     230,           255
-F 80,60,30
+C     22, 22, 21
+F 86, 88, 51
 
         1111111111111111111111111
         1000000000100000000000001
