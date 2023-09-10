@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_textures1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:59:54 by mmaqbour          #+#    #+#             */
-/*   Updated: 2023/09/10 18:37:54 by mmaqbour         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:00:10 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,16 @@ void	store_textures(int sign, t_data *data, char *line)
 {
 	if (sign == 0)
 		data->cnv_img1 = mlx_xpm_file_to_image(data->mlx.mlx_ptr, \
-				line, &data->tex_w, &data->tex_h);
+				line, &data->tex_w1, &data->tex_h1);
 	else if (sign == 1)
 		data->cnv_img2 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-				line, &data->tex_w, &data->tex_h);
+				line, &data->tex_w2, &data->tex_h2);
 	else if (sign == 2)
 		data->cnv_img3 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-				line, &data->tex_w, &data->tex_h);
+				line, &data->tex_w3, &data->tex_h3);
 	else if (sign == 3)
 		data->cnv_img4 = mlx_xpm_file_to_image(data->mlx.mlx_ptr,
-				line, &data->tex_w, &data->tex_h);
-	printf("tex_w = %d | tex_h = %d\n", data->tex_w, data->tex_h);
+				line, &data->tex_w4, &data->tex_h4);
 }
 
 static int	pars_textures1_1(char *line, int sign, t_data *data)

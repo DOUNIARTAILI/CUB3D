@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:09 by drtaili           #+#    #+#             */
-/*   Updated: 2023/09/09 14:32:02 by mmaqbour         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:01:11 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+void	tex_onwhich_side(t_data *data, t_dda *dda_, t_raycast *rc)
+{
+	if (dda_->side == 0 && rc->ray.x > 0)
+	{
+		data->tex_w = data->tex_w1;
+		data->tex_h = data->tex_h1;
+	}
+	else if (dda_->side == 0 && rc->ray.x < 0)
+	{
+		data->tex_w = data->tex_w2;
+		data->tex_h = data->tex_h2;
+	}	
+	else if (dda_->side == 1 && rc->ray.y > 0)
+	{
+		data->tex_w = data->tex_w3;
+		data->tex_h = data->tex_h3;
+	}	
+	else if (dda_->side == 1 && rc->ray.y < 0)
+	{
+		data->tex_w = data->tex_w4;
+		data->tex_h = data->tex_h4;
+	}	
+}
 
 void	texture_prep(t_data *data, t_dda *dda_, t_raycast *rc)
 {
@@ -21,6 +45,7 @@ void	texture_prep(t_data *data, t_dda *dda_, t_raycast *rc)
 	else
 		wallx = data->pos.x + dda_->perp_wall_dist * rc->ray.x;
 	wallx -= floor(wallx);
+	tex_onwhich_side(data, dda_, rc);
 	data->texx = (int)(wallx * (double)data->tex_w);
 	if (dda_->side == 0 && rc->ray.x > 0)
 		data->texx = data->tex_w - data->texx - 1;

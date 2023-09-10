@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:57 by drtaili           #+#    #+#             */
-/*   Updated: 2023/09/10 19:26:15 by mmaqbour         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:00:33 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,14 @@ typedef struct s_data
 	int				*cnv_addr1;
 	int				tex_w;
 	int				tex_h;
+	int				tex_w1;
+	int				tex_h1;
+	int				tex_w2;
+	int				tex_h2;
+	int				tex_w3;
+	int				tex_h3;
+	int				tex_w4;
+	int				tex_h4;
 	int				cnv_bpp1;
 	int				cnv_ll1;
 	int				cnv_en1;
