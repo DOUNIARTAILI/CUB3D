@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:55:57 by drtaili           #+#    #+#             */
-/*   Updated: 2023/09/10 21:00:33 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/09/11 11:06:15 by mmaqbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 # define WIN_WIDTH  1920
 # define WIN_HEIGHT 1080
@@ -35,7 +35,7 @@
 # define GRAY 0xAAAAAA
 # define RED 0xFF0000
 # define WHITE 0xFFFFFF
-# define SKY 0x87CEEB
+# define D_BLUE 0x00008b
 # define GRASS 0x7CFC00
 
 typedef struct s_mlx
@@ -194,5 +194,7 @@ void	get_textures_add(int sign, t_data *data);
 int		check_textures2(int sign, t_data *data);
 void	draw_tile(int x, int y, int type, t_data *data);
 int		all_spaces(char *str);
+int		check_line(char *line);
+int		contain_one(char *line);
 
 #endif

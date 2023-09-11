@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:09 by drtaili           #+#    #+#             */
-/*   Updated: 2023/09/10 21:01:11 by drtaili          ###   ########.fr       */
+/*   Updated: 2023/09/11 08:03:53 by mmaqbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	tex_onwhich_side(t_data *data, t_dda *dda_, t_raycast *rc)
 	{
 		data->tex_w = data->tex_w2;
 		data->tex_h = data->tex_h2;
-	}	
+	}
 	else if (dda_->side == 1 && rc->ray.y > 0)
 	{
 		data->tex_w = data->tex_w3;
 		data->tex_h = data->tex_h3;
-	}	
+	}
 	else if (dda_->side == 1 && rc->ray.y < 0)
 	{
 		data->tex_w = data->tex_w4;
 		data->tex_h = data->tex_h4;
-	}	
+	}
 }
 
 void	texture_prep(t_data *data, t_dda *dda_, t_raycast *rc)

@@ -6,49 +6,28 @@
 /*   By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:57:16 by mmaqbour          #+#    #+#             */
-/*   Updated: 2023/09/10 20:44:03 by mmaqbour         ###   ########.fr       */
+/*   Updated: 2023/09/11 08:13:55 by mmaqbour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int	check_line(char *line)
+static int	pars_textures_1(char **line, int result, int fd, t_game **game)
 {
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != ' ' && line[i] != '\n' && line[i] != '1')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	contain_one(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '1')
-			return (1);
-		i++;
-	}
+	free(*line);
+	if (result)
+		return (1);
+	*line = get_next_line(fd);
+	(*game)->map_h_tmp++;
 	return (0);
 }
 
 static int	pars_textures(t_game *game, int fd, char **line, t_data *data)
 {
 	int		result;
-	char	*tmp;
 
 	result = 0;
-	tmp = get_next_line(fd);
-	*line = ft_strtrim(tmp, " ");
-	free (tmp);
+	*line = get_next_line(fd);
 	while ((*line) != NULL)
 	{
 		if (**line == 'N' || **line == 'S' || **line == 'E' || **line == 'W')
@@ -63,11 +42,8 @@ static int	pars_textures(t_game *game, int fd, char **line, t_data *data)
 		}
 		else if (contain_one(*line))
 			return (0);
-		free(*line);
-		if (result)
+		if (pars_textures_1(line, result, fd, &game))
 			return (1);
-		*line = get_next_line(fd);
-		game->map_h_tmp++;
 	}
 	if ((*line) == NULL)
 		return (my_return_mistake(9));
