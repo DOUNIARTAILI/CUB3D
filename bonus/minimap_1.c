@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:18:12 by mmaqbour          #+#    #+#             */
-/*   Updated: 2023/09/11 19:47:59 by mmaqbour         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:33:45 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_player(t_data *data)
 		begin_x = 100;
 		begin_y = 100;
 		i = 0;
-		while (i < 5)
+		while (i < 2)
 		{
 			begin_x += cos(rotation_angle * M_PI / 180);
 			begin_y += sin(rotation_angle * M_PI / 180);

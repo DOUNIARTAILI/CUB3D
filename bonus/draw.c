@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmaqbour <mmaqbour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: drtaili <drtaili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 20:57:09 by drtaili           #+#    #+#             */
-/*   Updated: 2023/09/11 08:03:53 by mmaqbour         ###   ########.fr       */
+/*   Updated: 2023/09/17 00:13:54 by drtaili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	tex_onwhich_side(t_data *data, t_dda *dda_, t_raycast *rc)
 {
-	if (dda_->side == 0 && rc->ray.x > 0)
+	if (dda_->side == 0 && rc->ray.x > 0)//south
 	{
 		data->tex_w = data->tex_w1;
 		data->tex_h = data->tex_h1;
 	}
-	else if (dda_->side == 0 && rc->ray.x < 0)
+	else if (dda_->side == 0 && rc->ray.x < 0)//north
 	{
 		data->tex_w = data->tex_w2;
 		data->tex_h = data->tex_h2;
 	}
-	else if (dda_->side == 1 && rc->ray.y > 0)
+	else if (dda_->side == 1 && rc->ray.y > 0)//east
 	{
 		data->tex_w = data->tex_w3;
 		data->tex_h = data->tex_h3;
 	}
-	else if (dda_->side == 1 && rc->ray.y < 0)
+	else if (dda_->side == 1 && rc->ray.y < 0)//west
 	{
 		data->tex_w = data->tex_w4;
 		data->tex_h = data->tex_h4;
